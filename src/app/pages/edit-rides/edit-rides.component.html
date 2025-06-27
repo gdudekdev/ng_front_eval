@@ -1,0 +1,47 @@
+<form (ngSubmit)="onAddRides()" [formGroup]="formulaire">
+      <mat-form-field>
+            <mat-label>Adresse de départ</mat-label>
+            <input matInput placeholder="Ex. 1 rue de la Paix, Paris " formControlName="rides_departure" />
+
+            @if (formulaire.get('rides_departure')?.hasError('required')) {
+            <mat-error>L'adresse de départ est requise</mat-error>
+            } @else {
+            <mat-error>L'adresse de départ ne peut pas avoir plus de 40 caractères</mat-error>
+            }
+      </mat-form-field>
+      <mat-form-field>
+            <mat-label>Adresse d'arrivée</mat-label>
+            <input matInput placeholder="Ex. 1 rue de la Paix, Paris " formControlName="rides_destination" />
+
+            @if (formulaire.get('rides_destination')?.hasError('required')) {
+            <mat-error>L'adresse d'arrivée est requise</mat-error>
+            } @else {
+            <mat-error>L'adresse d'arrivée ne peut pas avoir plus de 40 caractères</mat-error>
+            }
+      </mat-form-field>
+      <mat-form-field>
+            <mat-label>Nombre de places</mat-label>
+            <input matInput formControlName="rides_seats" type="number" [defaultValue]="1" />
+
+            @if (formulaire.get('rides_seats')?.hasError('required')) {
+            <mat-error>Le nombre de places est requis</mat-error>
+            } @else {
+            <mat-error>Le nombre de places doit être au moins de 1</mat-error>
+            }
+      </mat-form-field>
+      <mat-form-field>
+            <mat-label>Date et heure de départ</mat-label>
+            <input matInput formControlName="rides_departure_time" type="datetime-local"  />
+
+            @if (formulaire.get('rides_departure_time')?.hasError('required')) {
+            <mat-error>La date et heure de départ sont requises</mat-error>
+            } @else {
+            <mat-error>Le trajet doit être crée au moins 24 heures à l'avance</mat-error>
+            }
+      </mat-form-field>
+
+      
+      <button mat-raised-button type="submit">
+            {{ ridesEdited ? "Modifier le Trajet" : "Ajouter le Trajet" }}
+      </button>
+</form>

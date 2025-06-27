@@ -1,0 +1,31 @@
+<form (ngSubmit)="onInscription()" [formGroup]="formulaire">
+  <mat-form-field>
+    <mat-label>Nom Complet</mat-label>
+    <input matInput placeholder="Ex. John Doe" formControlName="accounts_fullname" />
+
+    @if (formulaire.get('accounts_email')?.hasError('required')) {
+    <mat-error>Le nom complet est requis</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Ex. john@doe.com" formControlName="accounts_email" />
+
+    @if (formulaire.get('accounts_email')?.hasError('required')) {
+    <mat-error>L'email est requis</mat-error>
+    } @else {
+    <mat-error>L'email est mal formé</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Mot de passe</mat-label>
+    <input matInput type="password" formControlName="accounts_password" />
+
+    @if (formulaire.get('accounts_password')?.hasError('required')) {
+    <mat-error>Le mot de passe est requis</mat-error>
+    }
+  </mat-form-field>
+
+  <button type="submit" mat-raised-button>S'inscrire</button>
+</form>

@@ -1,0 +1,52 @@
+<div class="container">
+  @if(authService.user?.role == 'admin' || authService.user?.role ==
+  'user' ) {
+  <button mat-raised-button routerLink="/add-ride">
+    Ajouter un Trajet
+  </button>
+  }
+
+  <div class="row row-cols-2">
+    @for (item of rides; track $index) {
+
+    <div class="mb-4">
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>{{ item.accounts_fullname }}</mat-card-title>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="https://placehold.co/600x400/png"
+          alt="Trajet"
+        />
+        <mat-card-content>
+          <p>
+            {{ item.rides_departure }} ->  {{ item.rides_destination }}
+          </p>
+         
+          <i
+            >Date de départ du trajet :
+            {{ item.rides_departure_time| date : "HH:mm dd-MM-YYYY" }}</i
+          >
+        </mat-card-content>
+        <mat-card-actions>
+          <!-- @if((authService.user?.role == 'user' && authService.user?.id != item.accounts_id)){
+            <button mat-button>Réserver</button>
+          } -->
+            <button mat-button>Réserver</button>
+          @if(authService.user?.role == 'admin' ||
+          (authService.user?.role == 'user' && authService.user?.id == item.accounts_id))
+         {
+
+          <button mat-button routerLink="/update-rides/{{item.rides_id}}">Modifier</button>
+          <button mat-button (click)="onClickDeleteRide(item)">
+            Supprimer
+          </button>
+          }
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    }
+  </div>
+</div>
