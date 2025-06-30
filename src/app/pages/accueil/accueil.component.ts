@@ -42,4 +42,14 @@ export class AccueilComponent {
         });
     }
   }
+  onClickBook(rides_id : any){
+   if (confirm('Voulez-vous vraiment réserver ce trajet ?')) {
+      this.http
+        .post('http://localhost:5000/bookings', {rides_id : rides_id})
+        .subscribe((reponse) => {
+          this.refreshRides();
+          this.notification.show('Votre trajet a été réservé !', 'valid');
+        });
+    }
+  }
 }

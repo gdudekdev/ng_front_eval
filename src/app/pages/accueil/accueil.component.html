@@ -30,10 +30,7 @@
           >
         </mat-card-content>
         <mat-card-actions>
-          <!-- @if((authService.user?.role == 'user' && authService.user?.id != item.accounts_id)){
-            <button mat-button>Réserver</button>
-          } -->
-            <button mat-button>Réserver</button>
+            <button mat-button (click)="onClickBook(item.rides_id)">Réserver</button>
           @if(authService.user?.role == 'admin' ||
           (authService.user?.role == 'user' && authService.user?.id == item.accounts_id))
          {

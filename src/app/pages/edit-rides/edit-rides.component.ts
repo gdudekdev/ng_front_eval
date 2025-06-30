@@ -18,6 +18,7 @@ import { datePlus24hValidator } from '../../validator/date-plus-24h.validator';
   templateUrl: './edit-rides.component.html',
   styleUrl: './edit-rides.component.scss',
 })
+
 export class EditRidesComponent {
   formBuilder = inject(FormBuilder);
   http = inject(HttpClient);

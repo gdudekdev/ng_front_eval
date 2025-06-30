@@ -13,13 +13,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-bookings',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatTableModule,
-    RouterLink
-  ],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatTableModule],
   templateUrl: './bookings.component.html',
   styleUrl: './bookings.component.scss',
 })
@@ -57,22 +51,35 @@ export class BookingsComponent {
     this.http
       .get('http://localhost:5000/rides/me')
       .subscribe((rides) => (this.rides = rides));
+    console.log(this.rides);
   }
 
   refreshBookings() {
-    this.http
-      .get('http://localhost:5000/bookings/me')
-      .subscribe((bookings) => (this.bookings = bookings));
+    this.http.get('http://localhost:5000/bookings/me').subscribe((bookings) => {
+      this.bookings = bookings;
+      console.log(bookings);
+    });
   }
-
-  onClickDeleteRide(item: any) {
-    if (confirm('Voulez-vous vraiment supprimer ce trajet ?')) {
-      this.http
-        .delete('http://localhost:5000/rides/' + item.rides_id)
-        .subscribe(() => {
-          this.refreshRides();
-          this.notification.show('Le trajet a bien été supprimé', 'valid');
-        });
-    }
+  onClickAcceptBooking(bookings_id: number) {
+    this.http
+      .put('http://localhost:5000/bookings/me', {
+        bookings_id: bookings_id,
+        bookings_status: 'accepted',
+      })
+      .subscribe((response) => {
+        this.refreshBookings();
+        this.notification.show('La réservation a été acceptée !', 'valid');
+      });
+  }
+  onClickRefuseBooking(bookings_id: number) {
+    this.http
+      .put('http://localhost:5000/bookings/me', {
+        bookings_id: bookings_id,
+        bookings_status: 'refused',
+      })
+      .subscribe((response) => {
+        this.refreshBookings();
+        this.notification.show('La réservation a été acceptée !', 'valid');
+      });
   }
 }
