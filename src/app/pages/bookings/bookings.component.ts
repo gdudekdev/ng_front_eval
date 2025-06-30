@@ -79,7 +79,20 @@ export class BookingsComponent {
       })
       .subscribe((response) => {
         this.refreshBookings();
-        this.notification.show('La réservation a été acceptée !', 'valid');
+        this.notification.show('La réservation a été refusée !', 'warning');
       });
+  }
+  onClickCancelBooking(bookings_id: any) {
+    if (confirm('Voulez-vous vraiment annuler ce trajet ?')) {
+      this.http
+        .delete('http://localhost:5000/bookings/' + bookings_id )
+        .subscribe((response) => {
+          this.refreshBookings();
+          this.notification.show(
+            'La réservation a bien été annulée !',
+            'valid'
+          );
+        });
+    }
   }
 }

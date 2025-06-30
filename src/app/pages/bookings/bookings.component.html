@@ -11,6 +11,7 @@
             <th>Destination</th>
             <th>Date & Heure</th>
             <th>Statut</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -19,6 +20,9 @@
             <td>{{ booking.rides_destination }}</td>
             <td>{{ booking.rides_departure_time | date: 'short' }}</td>
             <td>{{ booking.bookings_status }}</td>
+            <button mat-button (click)="onClickCancelBooking(booking.bookings_id)">
+              Annuler
+            </button>
           </tr>
         </tbody>
       </table>
